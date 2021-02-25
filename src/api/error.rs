@@ -79,14 +79,14 @@ impl ResponseError for ApiError {
         match *self {
             Self::GenericBadRequest(ref e) => {
                 warn!("{}", e);
-                HttpResponse::BadRequest().json(to_json_error(&'?'))
+                HttpResponse::BadRequest().json(&to_json_error(&'?'))
             }
-            Self::PacksError(ref e) => HttpResponse::BadRequest().json(to_json_error(e)),
-            Self::RuleError(ref e) => HttpResponse::Forbidden().json(to_json_error(e)),
-            Self::ScopeError(ref e) => HttpResponse::Forbidden().json(to_json_error(e)),
-            Self::GroupsScopeError(ref e) => HttpResponse::Forbidden().json(to_json_error(e)),
-            Self::AALevelError(ref e) => HttpResponse::Forbidden().json(to_json_error(e)),
-            Self::InputToLong => HttpResponse::BadRequest().json(to_json_error(self)),
+            Self::PacksError(ref e) => HttpResponse::BadRequest().json(&to_json_error(e)),
+            Self::RuleError(ref e) => HttpResponse::Forbidden().json(&to_json_error(e)),
+            Self::ScopeError(ref e) => HttpResponse::Forbidden().json(&to_json_error(e)),
+            Self::GroupsScopeError(ref e) => HttpResponse::Forbidden().json(&to_json_error(e)),
+            Self::AALevelError(ref e) => HttpResponse::Forbidden().json(&to_json_error(e)),
+            Self::InputToLong => HttpResponse::BadRequest().json(&to_json_error(self)),
             _ => HttpResponse::InternalServerError().json(""),
         }
     }

@@ -30,7 +30,7 @@ async fn view_terms(
     group_name: web::Path<String>,
 ) -> Result<HttpResponse, ApiError> {
     match operations::terms::get_terms(&pool, &group_name) {
-        Ok(terms) => Ok(HttpResponse::Ok().json(terms)),
+        Ok(terms) => Ok(HttpResponse::Ok().json(&terms)),
         Err(e) => Err(ApiError::GenericBadRequest(e)),
     }
 }

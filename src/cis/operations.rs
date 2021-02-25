@@ -38,7 +38,7 @@ fn update_groups_and_sign(
     }
     field.metadata.last_modified = *now;
     field.signature.publisher.name = PublisherAuthority::Mozilliansorg;
-    store.sign_attribute(field)
+    store.sign_attribute(field).map_err(Into::into)
 }
 
 pub async fn _send_groups_to_cis(
@@ -61,7 +61,7 @@ pub async fn _send_groups_to_cis(
                 cis_client
                     .update_user(&user_id, update_profile)
                     .map_ok(|_| ())
-                    .await
+                    .await.map_err(Into::into)
             } else {
                 Err(format_err!("invalid user_id"))
             }

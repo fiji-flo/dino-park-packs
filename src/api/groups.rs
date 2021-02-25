@@ -39,7 +39,7 @@ async fn get_group(
     group_name: web::Path<String>,
 ) -> Result<HttpResponse, ApiError> {
     operations::groups::get_group(&pool, &group_name)
-        .map(|group| HttpResponse::Ok().json(DisplayGroup::from(group)))
+        .map(|group| HttpResponse::Ok().json(&DisplayGroup::from(group)))
         .map_err(Into::into)
 }
 
@@ -50,7 +50,7 @@ async fn list_groups(
 ) -> Result<HttpResponse, ApiError> {
     let query = query.into_inner();
     operations::groups::list_groups(&pool, query.f, query.by, query.s, query.n)
-        .map(|groups| HttpResponse::Ok().json(groups))
+        .map(|groups| HttpResponse::Ok().json(&groups))
         .map_err(ApiError::GenericBadRequest)
 }
 
@@ -168,7 +168,7 @@ async fn group_details(
         renewal_count,
         request_count,
     };
-    Ok(HttpResponse::Ok().json(result))
+    Ok(HttpResponse::Ok().json(&result))
 }
 
 pub fn groups_app<T: AsyncCisClientTrait + 'static>() -> impl HttpServiceFactory {

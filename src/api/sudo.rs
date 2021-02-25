@@ -326,7 +326,7 @@ async fn raw_data(
     user_uuid: web::Path<Uuid>,
 ) -> Result<HttpResponse, ApiError> {
     operations::raws::raw_user_data(&pool, &scope_and_user, Some(user_uuid.into_inner()))
-        .map(|data| HttpResponse::Ok().json(data))
+        .map(|data| HttpResponse::Ok().json(&data))
         .map_err(Into::into)
 }
 

@@ -61,7 +61,7 @@ async fn expire_all<T: AsyncCisClientTrait>(
 async fn expiration_notifications(pool: web::Data<Pool>) -> Result<HttpResponse, ApiError> {
     let expire_first = operations::expirations::expiration_notification(&pool, true)?;
     let expire_second = operations::expirations::expiration_notification(&pool, false)?;
-    Ok(HttpResponse::Ok().json(NotificationStatus {
+    Ok(HttpResponse::Ok().json(&NotificationStatus {
         expire_first,
         expire_second,
     }))
@@ -105,7 +105,7 @@ async fn bulk_update_users(
             serde_json::from_slice::<Vec<Profile>>(&buf).map_err(|_| ApiError::MultipartError)?;
         updated += operations::users::batch_update_user_cache(&pool, profiles)?;
     }
-    Ok(HttpResponse::Ok().json(UpdatedProfiles { updated }))
+    Ok(HttpResponse::Ok().json(&UpdatedProfiles { updated }))
 }
 
 pub fn internal_app<T: AsyncCisClientTrait + 'static>() -> impl HttpServiceFactory {

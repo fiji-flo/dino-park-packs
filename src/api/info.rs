@@ -42,7 +42,7 @@ async fn groups(
         .collect();
     diff.sort();
 
-    Ok(HttpResponse::Ok().json(AllGroups {
+    Ok(HttpResponse::Ok().json(&AllGroups {
         cis,
         dino_park,
         diff,

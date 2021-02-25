@@ -128,7 +128,7 @@ async fn invitation_email(
     let host = operations::users::user_by_id(&pool, &scope_and_user.user_id)?;
     match operations::invitations::get_invitation_email(&pool, &scope_and_user, &group_name, &host)
     {
-        Ok(invitation_email) => Ok(HttpResponse::Ok().json(invitation_email)),
+        Ok(invitation_email) => Ok(HttpResponse::Ok().json(&invitation_email)),
         Err(e) => Err(ApiError::GenericBadRequest(e)),
     }
 }
@@ -149,7 +149,7 @@ async fn update_invitation_email(
         &host,
         invitation_email.into_inner(),
     ) {
-        Ok(invitation_email) => Ok(HttpResponse::Ok().json(invitation_email)),
+        Ok(invitation_email) => Ok(HttpResponse::Ok().json(&invitation_email)),
         Err(e) => Err(ApiError::GenericBadRequest(e)),
     }
 }

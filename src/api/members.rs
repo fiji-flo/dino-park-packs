@@ -75,7 +75,7 @@ async fn get_members(
         &scope_and_user,
         query.into_inner().into(),
     ) {
-        Ok(members) => Ok(HttpResponse::Ok().json(members)),
+        Ok(members) => Ok(HttpResponse::Ok().json(&members)),
         Err(e) => Err(ApiError::GenericBadRequest(e)),
     }
 }

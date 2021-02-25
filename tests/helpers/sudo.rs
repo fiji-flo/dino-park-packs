@@ -8,7 +8,7 @@ use serde_json::json;
 
 pub async fn add_to_group<S, B, E>(mut app: &mut S, scope: &Soa, user: &Profile, group: &str)
 where
-    S: Service<Request = Request, Response = ServiceResponse<B>, Error = E>,
+    S: Service<Request, Response = ServiceResponse<B>, Error = E>,
     E: std::fmt::Debug,
 {
     let res = post(

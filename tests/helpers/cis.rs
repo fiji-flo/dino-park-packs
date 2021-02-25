@@ -1,4 +1,5 @@
 use cis_client::error::ProfileError;
+use cis_client::error::CisClientError;
 use cis_client::getby::GetBy;
 use cis_client::AsyncCisClientTrait;
 use cis_client::CisFut;
@@ -65,7 +66,7 @@ impl AsyncCisClientTrait for CisFakeClient {
         };
         match update_user_cache_unchecked(&self.pool, &p) {
             Ok(_) => Box::pin(ok(json!({}))),
-            Err(e) => Box::pin(err(e)),
+            Err(e) => Box::pin(err(CisClientError::RuntimeError)),
         }
     }
     fn update_users(&self, profiles: &[Profile]) -> CisFut<Value> {
